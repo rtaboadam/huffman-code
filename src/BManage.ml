@@ -15,7 +15,7 @@ let rec findcode xs x = match xs with
 (**Funcion que dado una lista de char y una tabla de frecuencias
  *regresa una lista de 0 y 1 que es la representacion en bits por
  *el algoritmo de Huffman*)
-let encode list_c table =
+let encode' list_c table =
   let list = List.map (findcode table) list_c in
   List.flatten list;;
 
@@ -30,7 +30,6 @@ let rec drop n xs = match (n,xs) with
     (0,x) -> x
    |(_,[]) -> []
    |(n,x::xs) -> (drop (n-1) xs);;
-
 
   
 (**Funcion que dado una lista de 0 y 1 te devuelve una lista de 
@@ -64,3 +63,8 @@ let to_write xs =
   let list_of_num = num_of_bin xs in
   let f = fun x -> Char.escaped (Char.chr x) in
   String.concat "" (List.map f list_of_num);;
+
+(**Funcion que cifra un archivo*)
+let encode archive table_c = 
+  let binary = encode' archive table_c in
+  to_write (only_eight binary);;

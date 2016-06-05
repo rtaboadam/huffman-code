@@ -5,8 +5,12 @@
  *Proyecto 02: Codigos de Huffman
  *)
 
+(*
 #use "topfind"
 #require "extlib"
+*)
+
+(**Implementacion de un parser*)
 
 (**Funcion que lee todo un archivo*)
 let read_file filename =
@@ -20,10 +24,16 @@ let explode s =
                       exp (i-1) (s.[i]::l) in
   exp (len-1) [];;
 
-(**Funcion que convierte lee todo un archivo y lo transforma a una lista de char*)             
-let char_list filename =
+(**Funcion que lee todo un archivo y lo transforma a 
+ *una lista de char*)             
+let read filename =
   let list = read_file filename in
   let rec iter = function
       [] -> []
      |x::xs -> explode x @ '\n'::iter xs in
   iter list;;
+
+
+(**Funcion que escribe todo lo de un string*)
+let write filename text =
+  Std.output_file filename text;;

@@ -7,19 +7,6 @@
 
 (**Aqui se implementa las colas de prioridades necesarias para el proyecto*)
 
-(**Definimos el signatura SET*)
-module type SET = sig
-    (**Tipo de la signatura*)
-    type 'a t 
-    val create: unit -> 'a t 
-    (**Funcion que crea un valor SET*)
-    val add: 'a -> 'a t -> unit
-    (**Funcion que agrega un elemento a un tipo SET*)
-    val to_list: 'a t -> ('a*int) list
-    (**Funcion que convierte un SET a una lista*)
-end 
-
-module PQueue = struct
   (**Asi se declara el tipo del modulo*)
   type 'a t = ('a option*int array) ref;;
 
@@ -72,6 +59,4 @@ module PQueue = struct
         [] -> to_list pqueue
        |x::xs -> add x pqueue;aux xs pqueue in
     aux list_c pqueue;;
-end
-    
-(*module PQueue1 = (PQueue:SET);;*)  
+      

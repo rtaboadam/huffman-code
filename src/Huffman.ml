@@ -47,4 +47,15 @@ let code_table tree =
       Leaf (x,_) -> [(x,xs)]
      |Branch (l,_,r) -> aux (xs@[0]) l @ aux (xs@[1]) r in
   aux [] tree;;
-  
+
+(**Funcion que descomprime un archivo*)
+let decode tree list =
+  let rec aux t lc l =
+    match (t,lc) with
+      (Leaf (x,_),ls) -> aux tree ls (l@[x])
+     |(_,[]) -> l
+     |(Branch(x,_,_),'0'::xs) -> aux x xs l
+     |(Branch(_,_,x),'1'::xs) -> aux x xs l
+     | _ -> failwith "Error: Esta lista contiene mas que 0's y 1's"  
+  in
+  aux tree list [];;

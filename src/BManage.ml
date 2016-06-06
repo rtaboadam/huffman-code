@@ -67,4 +67,4 @@ let to_write xs =
 (**Funcion que cifra un archivo*)
 let encode archive table_c = 
   let binary = encode' archive table_c in
-  to_write (only_eight binary);;
+  String.concat "" (List.map string_of_int binary);;

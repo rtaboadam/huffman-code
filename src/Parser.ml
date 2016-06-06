@@ -38,3 +38,28 @@ let read filename =
 (**Funcion que escribe todo lo de un string*)
 let write filename text =
   Std.output_file filename text;;
+
+(**Funcion que separa en tokens*)
+let rec split_char sep str =
+  try
+    let i = String.index str sep in
+    String.sub str 0 i ::
+      split_char sep (String.sub str (i+1) (String.length str - i - 1))
+  with Not_found ->
+    [str]
+
+(***)
+let save_table filename =
+  let strings = read_file filename in
+  let rec create ss = match ss with
+      [] -> []
+     |x::xs -> let list = split_char ',' x in
+	       let len = List.length list in
+	       if len > 2 then
+		 (',',int_of_string (List.nth list (len-1)))::create xs
+	       else
+		 match List.hd list with
+		   "\\n" -> ('\n',int_of_string (List.nth list (len-1)))::create xs
+		  |_ -> ((List.hd list).[0],int_of_string (List.nth list (len-1)))::create xs
+  in
+  create strings;;
